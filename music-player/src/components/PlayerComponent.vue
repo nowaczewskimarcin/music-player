@@ -21,7 +21,7 @@ export default defineComponent({
   },
   methods: {
       firstFunction() {
-          console.log("firstFunction")
+          console.log("firstFunction test")
       }
   }
 });
