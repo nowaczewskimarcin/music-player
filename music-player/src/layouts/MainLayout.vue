@@ -1,8 +1,8 @@
 <template>
   <q-layout class="row" view="hHh lpR fFf fit row wrap justify-start items-start content-start">
   <div class="wrapper">
-    <div class="left-column"><SongsComponent /></div>
-    <div class="right-column"><PlaylistsComponent /></div>
+    <div class="left-column"><PlaylistsComponent /></div>
+    <div class="right-column"><SongsComponent /></div>
   </div>
   <q-footer><PlayerControls /></q-footer>
     </q-layout>
