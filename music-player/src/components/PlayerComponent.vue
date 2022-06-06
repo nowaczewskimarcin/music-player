@@ -14,14 +14,10 @@ export default defineComponent({
   name: 'PlayerControls',
 
   components: {},
-    
-  setup () {
-
-    return {}
-  },
+  computed: {},
   methods: {
       firstFunction() {
-          console.log("firstFunction test")
+          console.log('function call');
       }
   }
 });
