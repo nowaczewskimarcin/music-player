@@ -19,7 +19,7 @@ export const usePlaylistsStore = defineStore('playlists', {
       {
         name: 'Marcins music tralala',
         songsCount: 128,
-      }
+      },
     ],
   }),
   getters: {
@@ -28,7 +28,15 @@ export const usePlaylistsStore = defineStore('playlists', {
   },
   actions: {
     setCurrentPlaylist(playlist: PlaylistModel) {
-      this.currentPlaylist = playlist
+      this.currentPlaylist = playlist;
+    },
+    addNewPlaylist(playlist: PlaylistModel) {
+      this.playlists.push(playlist);
+    },
+    deletePlaylist(index: number) {
+      this.playlists = this.playlists.filter(
+        (playlists: PlaylistModel, playlistIndex) => playlistIndex !== index
+      );
     },
   },
 });
