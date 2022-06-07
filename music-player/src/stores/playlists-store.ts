@@ -1,9 +1,5 @@
 import { defineStore } from 'pinia';
-
-export interface PlaylistModel {
-  name: string;
-  songsCount: number;
-}
+import { PlaylistModel } from 'components/models';
 
 export const usePlaylistsStore = defineStore('playlists', {
   state: () => ({
