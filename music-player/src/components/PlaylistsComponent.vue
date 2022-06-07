@@ -85,10 +85,6 @@ export default defineComponent({
         name: this.enteredPlaylist,
         songsCount: this.enteredCount,
       });
-      // this.playlistsStore.push({
-      //   name: enteredPlaylist,
-      //   songsCount: enteredCount,
-      // });
     },
     deletePlaylist(index: number) {
       this.playlistsStore.deletePlaylist(index);
