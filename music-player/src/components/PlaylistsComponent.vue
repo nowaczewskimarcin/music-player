@@ -2,6 +2,7 @@
   <div v-for="playlist in playlists" :key="playlist.name">
     <p @click="setCurrentPlaylist(playlist)">{{ playlist.name }} ({{playlist.songsCount}})</p>
   </div>
+  <p class="clicker" @click="addNewPlaylist({name: 'New Playlist', songsCount: 0})">Click ME dude :)</p>
 </template>
 
 <script lang="ts">
@@ -26,7 +27,17 @@ export default defineComponent({
   methods: {
     setCurrentPlaylist(playlistName: PlaylistModel) {
       this.playlistsStore.setCurrentPlaylist(playlistName);
+    },
+    addNewPlaylist(playlist: PlaylistModel) {
+      this.playlistsStore.addPlaylist(playlist)
     }
   },
 });
 </script>
+<style lang="scss">
+.clicker {
+  &:hover {
+    cursor: pointer;
+  }
+}
+</style>

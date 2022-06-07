@@ -30,5 +30,8 @@ export const usePlaylistsStore = defineStore('playlists', {
     setCurrentPlaylist(playlist: PlaylistModel) {
       this.currentPlaylist = playlist
     },
+    addPlaylist(playlist: PlaylistModel) {
+      this.playlists.push(playlist)
+    }
   },
 });
