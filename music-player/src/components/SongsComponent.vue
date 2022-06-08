@@ -6,8 +6,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { mapStores } from 'pinia'
-import { usePlaylistsStore } from 'stores/playlists-store'
+import { mapStores } from 'pinia';
+import { usePlaylistsStore } from 'stores/playlists-store';
 import { PlaylistModel } from 'components/models';
 
 export default defineComponent({
@@ -18,15 +18,15 @@ export default defineComponent({
   computed: {
     selectedPlaylist: {
       get(): PlaylistModel {
-        return this.playlistsStore.getCurrentPlay list;
+        return this.playlistsStore.getCurrentPlaylist;
       },
       set(newVal: PlaylistModel) {
         return newVal;
-      }
+      },
     },
     ...mapStores(usePlaylistsStore),
   },
-  methods: {}
+  methods: {},
 });
 </script>
 <!-- // wyswietlic liste piosnek z danej playlisty -->
