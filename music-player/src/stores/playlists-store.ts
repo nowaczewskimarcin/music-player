@@ -38,5 +38,9 @@ export const usePlaylistsStore = defineStore('playlists', {
         (playlists: PlaylistModel, playlistIndex) => playlistIndex !== index
       );
     },
+    editPlaylist(playlist: PlaylistModel, index: number) {
+      console.log(playlist, index);
+      this.playlists[index] = playlist;
+    },
   },
 });
