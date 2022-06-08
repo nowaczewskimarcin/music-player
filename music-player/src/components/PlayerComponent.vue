@@ -6,7 +6,6 @@
       class="text-purple q-gutter-md row justify-center items-center"
       style="font-size: 2em"
     >
-      <div><text-body1>ssss </text-body1></div>
       <div>
         <q-btn
           class="btn-player previous"
