@@ -4,7 +4,7 @@
       color="primary"
       icon="ion-add"
       label="Add new playlist"
-      @click="openDialogAddNewPlaylist()"
+      @click="openDialogAddNewPlaylist(false)"
     />
 
     <q-dialog v-model="showDialog" persistent>
@@ -30,7 +30,8 @@
 
         <q-card-actions align="right" class="text-primary">
           <q-btn flat label="Cancel" v-close-popup />
-          <q-btn flat label="Add playlist" @click="addNewPlaylist()" />
+          <q-btn v-if="!isEditMode" flat label="Add playlist" @click="addNewPlaylist()" />
+          <q-btn v-if="isEditMode" flat label="Update playlist" @click="editPlaylist()" />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -39,7 +40,7 @@
       <p @click="setCurrentPlaylist(playlist)">
         {{ playlist.name }} ({{ playlist.songsCount }})
       </p>
-      <q-badge color="blue"> EDIT </q-badge>
+      <q-badge color="blue" @click="openDialogAddNewPlaylist(true, playlist, index)"> EDIT </q-badge>
       <q-badge color="red" @click="deletePlaylist(index)"> DELETE </q-badge>
     </div>
   </div>
@@ -58,6 +59,8 @@ export default defineComponent({
       showDialog: false,
       enteredPlaylist: '',
       enteredCount: 0,
+      isEditMode: false,
+      editedIndex: 0,
     };
   },
   computed: {
@@ -76,8 +79,15 @@ export default defineComponent({
       this.playlistsStore.setCurrentPlaylist(playlistName);
     },
 
-    openDialogAddNewPlaylist() {
+    openDialogAddNewPlaylist(isEditMode: boolean, playlist: PlaylistModel, index: number) {
+      this.isEditMode = isEditMode;
       this.showDialog = true;
+
+      if (isEditMode) {
+        this.enteredPlaylist = playlist.name;
+        this.enteredCount = playlist.songsCount;
+        this.editedIndex = index;
+      }
     },
 
     addNewPlaylist() {
@@ -85,10 +95,18 @@ export default defineComponent({
         name: this.enteredPlaylist,
         songsCount: this.enteredCount,
       });
+      this.showDialog = false;
     },
     deletePlaylist(index: number) {
       this.playlistsStore.deletePlaylist(index);
     },
+    editPlaylist() {
+      this.playlistsStore.editPlaylist({
+        name: this.enteredPlaylist,
+        songsCount: this.enteredCount,
+      }, this.editedIndex);
+      this.showDialog = false;
+    }
   },
 });
 </script>
