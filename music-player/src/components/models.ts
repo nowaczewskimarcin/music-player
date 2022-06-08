@@ -1,6 +1,6 @@
 export interface PlaylistModel {
   name: string;
-  SongsList: any;
+  SongsList: SongModel[];
 }
 export interface SongModel {
   name: string;
