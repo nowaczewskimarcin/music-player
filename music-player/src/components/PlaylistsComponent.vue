@@ -6,7 +6,7 @@
       label="Add new playlist"
       @click="openDialogAddNewPlaylist()"
     />
-
+    <!-- Dialog add playlist -->
     <q-dialog v-model="showDialog" persistent>
       <q-card style="min-width: 350px">
         <q-card-section>
@@ -27,10 +27,38 @@
             hint="Enter playlist count"
           />
         </q-card-section>
-
         <q-card-actions align="right" class="text-primary">
           <q-btn flat label="Cancel" v-close-popup />
           <q-btn flat label="Add playlist" @click="addNewPlaylist()" />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+
+    <!-- Dialog edit  playlist -->
+    <q-dialog v-model="showDialogEdit" persistent>
+      <q-card style="min-width: 350px">
+        <q-card-section>
+          <div class="text-h6">Edit playlist</div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none">
+          <q-input
+            dense
+            v-model="editPlaylist"
+            autofocus
+            hint="Edit playlist name"
+          />
+          <q-input
+            dense
+            type="number"
+            v-model="editCount"
+            hint="Edit playlist count"
+          />
+        </q-card-section>
+
+        <q-card-actions align="right" class="text-primary">
+          <q-btn flat label="Cancel" v-close-popup />
+          <q-btn flat label="Edit" @click="editPlaylist(index)" />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -39,7 +67,9 @@
       <p @click="setCurrentPlaylist(playlist)">
         {{ playlist.name }} ({{ playlist.songsCount }})
       </p>
-      <q-badge color="blue"> EDIT </q-badge>
+      <q-badge color="blue" @click="openDialogEditPlaylist(index)">
+        EDIT
+      </q-badge>
       <q-badge color="red" @click="deletePlaylist(index)"> DELETE </q-badge>
     </div>
   </div>
@@ -56,8 +86,11 @@ export default defineComponent({
   data() {
     return {
       showDialog: false,
+      showDialogEdit: false,
       enteredPlaylist: '',
       enteredCount: 0,
+      editCount: 0,
+      editPlaylist: '',
     };
   },
   computed: {
@@ -80,15 +113,26 @@ export default defineComponent({
       this.showDialog = true;
     },
 
+    openDialogEditPlaylist() {
+      this.showDialogEdit = true;
+    },
+
     addNewPlaylist() {
       this.playlistsStore.addNewPlaylist({
         name: this.enteredPlaylist,
         songsCount: this.enteredCount,
       });
     },
+
     deletePlaylist(index: number) {
       this.playlistsStore.deletePlaylist(index);
     },
+
+    // editPlaylist(index: number) {
+    //   this.playlistsStore.editPlaylist(index);
+    // },
   },
 });
 </script>
+/// nowy modal: modyfikacja nazwy i liczby, akcje: index i model playlisty z
+nowymi danymi

@@ -38,5 +38,10 @@ export const usePlaylistsStore = defineStore('playlists', {
         (playlists: PlaylistModel, playlistIndex) => playlistIndex !== index
       );
     },
+    // editPlaylist() {
+    //   this.playlists = this.playlists.filter(
+    //     (playlists: PlaylistModel, playlistIndex) => playlistIndex !== index
+    //   );
+    // },
   },
 });
