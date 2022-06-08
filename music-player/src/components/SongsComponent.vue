@@ -1,5 +1,7 @@
 <template>
-  <p>Current playlist: <strong>{{ selectedPlaylist.name }}</strong></p>
+  <p>
+    Current playlist: <strong>{{ selectedPlaylist.name }}</strong>
+  </p>
 </template>
 
 <script lang="ts">
@@ -16,7 +18,7 @@ export default defineComponent({
   computed: {
     selectedPlaylist: {
       get(): PlaylistModel {
-        return this.playlistsStore.getCurrentPlaylist;
+        return this.playlistsStore.getCurrentPlay list;
       },
       set(newVal: PlaylistModel) {
         return newVal;
@@ -27,3 +29,4 @@ export default defineComponent({
   methods: {}
 });
 </script>
+<!-- // wyswietlic liste piosnek z danej playlisty -->
