@@ -5,20 +5,20 @@ export const usePlaylistsStore = defineStore('playlists', {
   state: () => ({
     currentPlaylist: {
       name: '',
-      songsCount: 0,
+      SongsList: [],
     },
     playlists: [
       {
         name: 'Good mood',
-        songsCount: 37,
+        SongsList: [],
       },
       {
         name: 'Queen',
-        songsCount: 13,
+        SongsList: [],
       },
       {
         name: 'Marcins music tralala',
-        songsCount: 128,
+        SongsList: [],
       },
     ],
   }),
