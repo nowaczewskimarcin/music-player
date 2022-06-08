@@ -1,24 +1,24 @@
 import { defineStore } from 'pinia';
-import { PlaylistModel } from 'components/models';
+import { PlaylistModel, SongModel } from 'components/models';
 
 export const usePlaylistsStore = defineStore('playlists', {
   state: () => ({
     currentPlaylist: {
       name: '',
-      SongsList: [],
+      SongsList: [] as SongModel[],
     },
     playlists: [
       {
         name: 'Good mood',
-        SongsList: [],
+        SongsList: [] as SongModel[],
       },
       {
         name: 'Queen',
-        SongsList: [],
+        SongsList: [] as SongModel[],
       },
       {
         name: 'Marcins music tralala',
-        SongsList: [],
+        SongsList: [] as SongModel[],
       },
     ],
   }),
