@@ -9,7 +9,9 @@
     </li>
   </ol>
   <ul v-else>
-    <li>This playlist is empty</li>
+    <li>
+      This playlist is empty. You can add song by clicking add song button.
+    </li>
   </ul>
 </template>
 
@@ -39,7 +41,7 @@ export default defineComponent({
 });
 </script>
 <!-- // wyswietlic liste piosnek z danej playlisty, jezeli pusta to wyswietlic info, dodawanie, usuwanie, edytowanie listy-->
-<style scoped>
+<style scoped lang="scss">
 ul {
   list-style: none;
 }
