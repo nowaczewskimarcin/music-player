@@ -6,11 +6,37 @@ export const usePlaylistsStore = defineStore('playlists', {
     currentPlaylist: {
       name: '',
       SongsList: [],
-    },
+    } as PlaylistModel,
     playlists: [
       {
         name: 'Good mood',
-        SongsList: [],
+        SongsList: [
+          {
+            title: 'Testowo',
+            year: 1990,
+            artist: 'Andrzej Szopenchauer',
+          },
+          {
+            title: 'Testujemy',
+            year: 1970,
+            artist: 'Kalio Zarro',
+          },
+          {
+            title: 'Na',
+            year: 1999,
+            artist: 'Kalio Zarro',
+          },
+          {
+            title: 'Potrzeby',
+            year: 1980,
+            artist: 'Kalio Zarro',
+          },
+          {
+            title: 'Nauki',
+            year: 1970,
+            artist: 'Kalsasio Fo',
+          },
+        ],
       },
       {
         name: 'Queen',
