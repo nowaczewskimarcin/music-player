@@ -2,6 +2,15 @@
   <p>
     Current playlist: <strong>{{ selectedPlaylist.name }}</strong>
   </p>
+
+  <ol v-if="selectedPlaylist.SongsList.length !== 0">
+    <li v-for="song in selectedPlaylist.SongsList" :key="song.title">
+      <p>{{ song.title }} - {{ song.artist }} ({{ song.year }})</p>
+    </li>
+  </ol>
+  <ul v-else>
+    <li>This playlist is empty</li>
+  </ul>
 </template>
 
 <script lang="ts">
@@ -29,4 +38,9 @@ export default defineComponent({
   methods: {},
 });
 </script>
-<!-- // wyswietlic liste piosnek z danej playlisty -->
+<!-- // wyswietlic liste piosnek z danej playlisty, jezeli pusta to wyswietlic info, dodawanie, usuwanie, edytowanie listy-->
+<style scoped>
+ul {
+  list-style: none;
+}
+</style>
