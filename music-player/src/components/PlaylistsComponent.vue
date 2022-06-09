@@ -48,56 +48,6 @@
       </q-badge>
       <q-badge color="red" @click="deletePlaylist(index)"> DELETE </q-badge>
     </div>
-
-    <q-btn
-      class="btn-add-song"
-      color="green"
-      icon="ion-add"
-      label="Add new Song"
-      @click="openDialogNewSong()"
-    />
-    <q-dialog v-model="addNewSongDialog" persistent>
-      <q-card style="min-width: 350px">
-        <q-card-section>
-          <div class="text-h6">Please enter new song and chose playlist</div>
-        </q-card-section>
-
-        <q-card-section class="q-pt-none">
-          <q-input
-            dense
-            type="string"
-            v-model="titleSong"
-            hint="Enter title of song"
-            @keyup.enter="prompt = false"
-          />
-          <q-input
-            dense
-            type="string"
-            v-model="artistSong"
-            hint="Enter artist"
-            @keyup.enter="prompt = false"
-          />
-          <q-input
-            dense
-            type="number"
-            v-model="yearSong"
-            hint="Enter year of song"
-            @keyup.enter="prompt = false"
-          />
-          <q-select
-            v-model="model"
-            :options="playlists"
-            option-value="name"
-            option-label="name"
-          />
-        </q-card-section>
-
-        <q-card-actions align="right" class="text-primary">
-          <q-btn flat label="Cancel" v-close-popup />
-          <q-btn flat label="Add song" @click="addNewSong()" />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
   </div>
 </template>
 
@@ -120,7 +70,6 @@ export default defineComponent({
       isEditMode: false,
       addNewSongDialog: false,
       options: this.playlist,
-
       editedIndex: 0,
     };
   },
@@ -153,12 +102,6 @@ export default defineComponent({
       this.showDialog = false;
       this.resetTemp();
     },
-    openDialogNewSong() {
-      this.addNewSongDialog = true;
-    },
-    addNewSong() {
-      console.log('open addNewSongDialog');
-    },
     resetTemp() {
       this.tempPlaylistsData = {
         name: '',
@@ -177,8 +120,4 @@ export default defineComponent({
 });
 </script>
 
-<style scoped lang="scss">
-.btn-add-song {
-  bottom: -300px;
-}
-</style>
+<style scoped lang="scss"></style>
