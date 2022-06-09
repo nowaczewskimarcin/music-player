@@ -40,9 +40,9 @@
       </q-card>
     </q-dialog>
     <div v-for="(playlist, index) in playlists" :key="playlist.name">
-      <p @click="setCurrentPlaylist(playlist)">
+      <q-btn flat color="primary" @click="setCurrentPlaylist(playlist)">
         {{ playlist.name }}
-      </p>
+      </q-btn>
       <q-badge color="blue" @click="openDialog(true, playlist, index)">
         EDIT
       </q-badge>
