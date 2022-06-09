@@ -177,7 +177,7 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .btn-add-song {
   bottom: -300px;
 }
