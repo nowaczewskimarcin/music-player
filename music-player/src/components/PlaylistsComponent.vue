@@ -4,7 +4,7 @@
       color="primary"
       icon="ion-add"
       label="Add new playlist"
-      @click="openDialog(false)"
+      @click="openCreateDialog()"
     />
 
     <q-dialog v-model="showDialog" persistent>
@@ -39,11 +39,11 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
-    <div v-for="(playlist, index) in playlists" :key="playlist.name">
+    <div v-for="(playlist, index) in playlists" :key="index">
       <p @click="setCurrentPlaylist(playlist)">
         {{ playlist.name }}
       </p>
-      <q-badge color="blue" @click="openDialog(true, playlist, index)">
+      <q-badge color="blue" @click="openEditDialog(playlist)">
         EDIT
       </q-badge>
       <q-badge color="red" @click="deletePlaylist(index)"> DELETE </q-badge>
@@ -63,32 +63,30 @@ export default defineComponent({
     const store = usePlaylistsStore();
     const showDialog = ref(false);
     const isEditMode = ref(false);
-    const editedIndex = ref(0);
-    // const tempPlaylistsData =  {
-    //     name: '',
-    //     SongsList: [],
-    //   } as PlaylistModel;
     const tempPlaylistsData = reactive({
+      id: null,
       name: '',
       SongsList: [],
-    } as PlaylistModel)
+    } as PlaylistModel);
 
     const playlists = computed(() => store.getPlaylists);
 
     const setCurrentPlaylist = (playlistName: PlaylistModel): void => {
       store.setCurrent(playlistName);
     };
-    const openDialog = (isEditModeEnabled: boolean, playlist?: PlaylistModel, index?: number): void => {
-      console.log(isEditModeEnabled, playlist, index)
-      isEditMode.value = isEditModeEnabled;
+    const openEditDialog = (playlist: PlaylistModel): void => {
+      isEditMode.value = true;
       showDialog.value = true;
-      if (isEditModeEnabled) {
-        tempPlaylistsData.name = playlist?.name || tempPlaylistsData.name;
-
-        editedIndex.value = index || 0;
-      }
-    };
+      tempPlaylistsData.name = playlist.name;
+      tempPlaylistsData.id = playlist.id;
+    }
+    const openCreateDialog = (): void => {
+      isEditMode.value = false;
+      showDialog.value = true;
+      resetTemp();
+    }
     const resetTemp = () => {
+      tempPlaylistsData.id = null;
       tempPlaylistsData.name = '';
       tempPlaylistsData.SongsList = [];
     };
@@ -97,11 +95,11 @@ export default defineComponent({
       showDialog.value = false;
     };
     const deletePlaylist = (index: number): void => {
-      console.log(index)
       store.remove(index);
     };
-    const editPlaylist = (playlist: PlaylistModel, index: number): void => {
-      store.edit(playlist, index);
+    const editPlaylist = (playlist: PlaylistModel): void => {
+      store.edit(playlist);
+      showDialog.value = false;
     }
 
     return {
@@ -111,7 +109,8 @@ export default defineComponent({
       addNewPlaylist,
       deletePlaylist,
       editPlaylist,
-      openDialog,
+      openEditDialog,
+      openCreateDialog,
       tempPlaylistsData,
       playlists,
       resetTemp,
