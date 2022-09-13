@@ -6,7 +6,7 @@ export const usePlaylistsStore = defineStore('playlists', {
     currentPlaylist: {
       name: '',
       SongsList: [],
-    },
+    } as PlaylistModel,
     playlists: [
       {
         name: 'Good mood',
@@ -20,26 +20,26 @@ export const usePlaylistsStore = defineStore('playlists', {
         name: 'Marcins music tralala',
         SongsList: [],
       },
-    ],
+    ] as PlaylistModel[],
   }),
   getters: {
-    getCurrentPlaylist: (state) => state.currentPlaylist,
+    getCurrent: (state) => state.currentPlaylist,
     getPlaylists: (state) => state.playlists,
   },
   actions: {
-    setCurrentPlaylist(playlist: PlaylistModel) {
+    setCurrent(playlist: PlaylistModel) {
       this.currentPlaylist = playlist;
     },
-    addNewPlaylist(playlist: PlaylistModel) {
+    addNew(playlist: PlaylistModel) {
       this.playlists.push(playlist);
     },
-    deletePlaylist(index: number) {
+    remove(index: number) {
+      console.log(index)
       this.playlists = this.playlists.filter(
         (playlists: PlaylistModel, playlistIndex) => playlistIndex !== index
       );
     },
-    editPlaylist(playlist: PlaylistModel, index: number) {
-      console.log(playlist, index);
+    edit(playlist: PlaylistModel, index: number) {
       this.playlists[index] = playlist;
     },
   },

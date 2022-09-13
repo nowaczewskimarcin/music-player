@@ -18,7 +18,7 @@ export default defineComponent({
   computed: {
     selectedPlaylist: {
       get(): PlaylistModel {
-        return this.playlistsStore.getCurrentPlaylist;
+        return this.playlistsStore.getCurrent;
       },
       set(newVal: PlaylistModel) {
         return newVal;

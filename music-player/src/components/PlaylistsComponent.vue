@@ -52,68 +52,70 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { mapStores } from 'pinia';
+import { defineComponent, ref, computed, reactive } from 'vue';
 import { usePlaylistsStore } from 'stores/playlists-store';
 import { PlaylistModel } from 'components/models';
 
 export default defineComponent({
   name: 'PlaylistsComponent',
   components: {},
-  data() {
-    return {
-      showDialog: false,
-      tempPlaylistsData: {
-        name: '',
-        SongsList: [],
-      },
-      isEditMode: false,
-      editedIndex: 0,
-    };
-  },
-  computed: {
-    ...mapStores(usePlaylistsStore),
-    playlists: {
-      get(): PlaylistModel[] {
-        return this.playlistsStore.getPlaylists;
-      },
-      set(val: PlaylistModel) {
-        return val;
-      },
-    },
-  },
-  methods: {
-    setCurrentPlaylist(playlistName: PlaylistModel) {
-      this.playlistsStore.setCurrentPlaylist(playlistName);
-    },
-    openDialog(isEditMode: boolean, playlist?: PlaylistModel, index?: number) {
-      this.isEditMode = isEditMode;
-      this.showDialog = true;
-      if (isEditMode) {
-        this.tempPlaylistsData = playlist || this.tempPlaylistsData;
+  setup() {
+    const store = usePlaylistsStore();
+    const showDialog = ref(false);
+    const isEditMode = ref(false);
+    const editedIndex = ref(0);
+    // const tempPlaylistsData =  {
+    //     name: '',
+    //     SongsList: [],
+    //   } as PlaylistModel;
+    const tempPlaylistsData = reactive({
+      name: '',
+      SongsList: [],
+    } as PlaylistModel)
 
-        this.editedIndex = index || 0;
+    const playlists = computed(() => store.getPlaylists);
+
+    const setCurrentPlaylist = (playlistName: PlaylistModel): void => {
+      store.setCurrent(playlistName);
+    };
+    const openDialog = (isEditModeEnabled: boolean, playlist?: PlaylistModel, index?: number): void => {
+      console.log(isEditModeEnabled, playlist, index)
+      isEditMode.value = isEditModeEnabled;
+      showDialog.value = true;
+      if (isEditModeEnabled) {
+        tempPlaylistsData.name = playlist?.name || tempPlaylistsData.name;
+
+        editedIndex.value = index || 0;
       }
-    },
-    addNewPlaylist(playlist: PlaylistModel) {
-      this.playlistsStore.addNewPlaylist(playlist);
-      this.showDialog = false;
-      this.resetTemp();
-    },
-    resetTemp() {
-      this.tempPlaylistsData = {
-        name: '',
-        SongsList: [],
-      };
-    },
-    deletePlaylist(index: number) {
-      this.playlistsStore.deletePlaylist(index);
-    },
-    editPlaylist(playlist: PlaylistModel) {
-      this.playlistsStore.editPlaylist(playlist, this.editedIndex);
-      this.showDialog = false;
-      this.resetTemp();
-    },
+    };
+    const resetTemp = () => {
+      tempPlaylistsData.name = '';
+      tempPlaylistsData.SongsList = [];
+    };
+    const addNewPlaylist = (playlist: PlaylistModel): void => {
+      store.addNew(playlist);
+      showDialog.value = false;
+    };
+    const deletePlaylist = (index: number): void => {
+      console.log(index)
+      store.remove(index);
+    };
+    const editPlaylist = (playlist: PlaylistModel, index: number): void => {
+      store.edit(playlist, index);
+    }
+
+    return {
+      showDialog,
+      isEditMode,
+      setCurrentPlaylist,
+      addNewPlaylist,
+      deletePlaylist,
+      editPlaylist,
+      openDialog,
+      tempPlaylistsData,
+      playlists,
+      resetTemp,
+    }
   },
 });
 </script>

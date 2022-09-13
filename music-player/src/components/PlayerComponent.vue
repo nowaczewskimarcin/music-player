@@ -36,34 +36,37 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
   el: '#playerComponent',
   name: 'PlayerControls',
   components: {},
-  data() {
-    return {
-      isPlaying: false,
-    };
-  },
-  computed: {},
-  methods: {
-    previousSong() {
+  setup() {
+    const isPlaying = ref(false)
+
+    const previousSong = () => {
       console.log('User changed previous song <<<');
-    },
-    playSong() {
-      this.isPlaying = true;
+    }
+    const playSong = () => {
+      isPlaying.value = true;
       console.log('Song is playing');
-    },
-    pauseSong() {
-      this.isPlaying = false;
+    }
+    const pauseSong = () => {
+      isPlaying.value = false;
       console.log('Song is pausing');
-    },
-    nextSong() {
+    }
+    const nextSong = () => {
       console.log('User changed forward song >>>');
-    },
-  },
+    }
+    return {
+      isPlaying,
+      playSong,
+      previousSong,
+      pauseSong,
+      nextSong,
+    }
+  }
 });
 </script>
 
