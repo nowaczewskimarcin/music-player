@@ -34,18 +34,24 @@ export const usePlaylistsStore = defineStore('playlists', {
     setCurrent(playlist: PlaylistModel) {
       this.currentPlaylist = playlist;
     },
-    addNew(playlist: PlaylistModel) {
-      playlist.id = new Date().getTime();
-      this.playlists.push(playlist);
+    addNew(playlistName: string) {
+      const newPlaylist = {
+        id: new Date().getTime(),
+        name: playlistName,
+        SongsList: [],
+      }
+      this.playlists.push(newPlaylist);
     },
-    remove(index: number) {
+    remove(id: number | null) {
+      if (!id) return;
       this.playlists = this.playlists.filter(
-        (playlists: PlaylistModel, playlistIndex) => playlistIndex !== index
+        (playlist: PlaylistModel) => playlist.id !== id
       );
     },
-    edit(playlist: PlaylistModel) {
-      const index = this.playlists.findIndex((item: PlaylistModel) => item.id === playlist.id );
-      this.playlists[index] = playlist;
+    edit(playlistName: string, id: number | null) {
+      if (!id) return;
+      const index = this.playlists.findIndex((item: PlaylistModel) => item.id === id );
+      this.playlists[index].name = playlistName;
     },
   },
 });
