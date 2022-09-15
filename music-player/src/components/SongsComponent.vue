@@ -5,28 +5,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { mapStores } from 'pinia';
+import { defineComponent, computed } from 'vue';
 import { usePlaylistsStore } from 'stores/playlists-store';
-import { PlaylistModel } from 'components/models';
 
 export default defineComponent({
   name: 'SongsComponent',
-
   components: {},
+  setup() {
+    const store = usePlaylistsStore();
 
-  computed: {
-    selectedPlaylist: {
-      get(): PlaylistModel {
-        return this.playlistsStore.getCurrentPlaylist;
-      },
-      set(newVal: PlaylistModel) {
-        return newVal;
-      },
-    },
-    ...mapStores(usePlaylistsStore),
+    const selectedPlaylist = computed(() => store.getCurrent);
+
+    return { selectedPlaylist }
   },
-  methods: {},
 });
 </script>
 <!-- // wyswietlic liste piosnek z danej playlisty -->
+<!-- No to dawaj!!!! :D -->

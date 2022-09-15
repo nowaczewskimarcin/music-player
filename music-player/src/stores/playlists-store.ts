@@ -4,43 +4,54 @@ import { PlaylistModel } from 'components/models';
 export const usePlaylistsStore = defineStore('playlists', {
   state: () => ({
     currentPlaylist: {
+      id: null,
       name: '',
       SongsList: [],
-    },
+    } as PlaylistModel,
     playlists: [
       {
+        id: 1,
         name: 'Good mood',
         SongsList: [],
       },
       {
+        id: 2,
         name: 'Queen',
         SongsList: [],
       },
       {
+        id: 3,
         name: 'Marcins music tralala',
         SongsList: [],
       },
-    ],
+    ] as PlaylistModel[],
   }),
   getters: {
-    getCurrentPlaylist: (state) => state.currentPlaylist,
+    getCurrent: (state) => state.currentPlaylist,
     getPlaylists: (state) => state.playlists,
   },
   actions: {
-    setCurrentPlaylist(playlist: PlaylistModel) {
+    setCurrent(playlist: PlaylistModel) {
       this.currentPlaylist = playlist;
     },
-    addNewPlaylist(playlist: PlaylistModel) {
-      this.playlists.push(playlist);
+    addNew(playlistName: string) {
+      const newPlaylist = {
+        id: new Date().getTime(),
+        name: playlistName,
+        SongsList: [],
+      }
+      this.playlists.push(newPlaylist);
     },
-    deletePlaylist(index: number) {
+    remove(id: number | null) {
+      if (!id) return;
       this.playlists = this.playlists.filter(
-        (playlists: PlaylistModel, playlistIndex) => playlistIndex !== index
+        (playlist: PlaylistModel) => playlist.id !== id
       );
     },
-    editPlaylist(playlist: PlaylistModel, index: number) {
-      console.log(playlist, index);
-      this.playlists[index] = playlist;
+    edit(playlistName: string, id: number | null) {
+      if (!id) return;
+      const index = this.playlists.findIndex((item: PlaylistModel) => item.id === id );
+      this.playlists[index].name = playlistName;
     },
   },
 });
