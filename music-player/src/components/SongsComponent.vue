@@ -1,7 +1,9 @@
 <template>
-  <p>
-    Current playlist: <strong>{{ selectedPlaylist.name }}</strong>
-  </p>
+  <div class="songs">
+    <p>
+      Current playlist: <strong>{{ selectedPlaylist.name }}</strong>
+    </p>
+  </div>
 </template>
 
 <script lang="ts">
@@ -22,3 +24,8 @@ export default defineComponent({
 </script>
 <!-- // wyswietlic liste piosnek z danej playlisty -->
 <!-- No to dawaj!!!! :D -->
+<style lang="scss" scoped>
+  .songs {
+    padding: 16px 20px 5px;
+  }
+</style>
