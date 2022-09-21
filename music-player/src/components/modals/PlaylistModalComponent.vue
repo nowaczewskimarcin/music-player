@@ -34,7 +34,7 @@
 </template>
   
 <script lang="ts">
-import { defineComponent, computed, WritableComputedRef } from 'vue';
+import { defineComponent, computed, ComputedRef, WritableComputedRef } from 'vue';
 import { usePlaylistsModalStore } from 'stores/playlist-modal-store';
 import { usePlaylistsStore } from 'stores/playlists-store';
 
@@ -44,8 +44,8 @@ components: {},
 setup() {
     const $modalStore = usePlaylistsModalStore();
     const $playlistStore = usePlaylistsStore();
-    const isOpen = computed(() => $modalStore.isModalOpen);
-    const isEditEnabled = computed(() => $modalStore.isEditEnabled);
+    const isOpen: ComputedRef<boolean> = computed(() => $modalStore.isModalOpen);
+    const isEditEnabled: ComputedRef<boolean> = computed(() => $modalStore.isEditEnabled);
     const name: WritableComputedRef<string> = computed({
         get(): string {
             return $modalStore.getName;
@@ -54,20 +54,20 @@ setup() {
             $modalStore.setName(val)
         }
     });
-    const id = computed(() => $modalStore.getId)
+    const id: ComputedRef<number | null> = computed(() => $modalStore.getId)
 
-    const closeModal = () => {
+    const closeModal: () => void = () => {
         $modalStore.closeModal();
     }
 
-    const resetStore = () => {
+    const resetStore: () => void = () => {
         $modalStore.resetStore();
     };
-    const addNewPlaylist = (): void => {
+    const addNewPlaylist: () => void = (): void => {
         $playlistStore.addNew(name.value);
         $modalStore.closeModal();
     };
-    const editPlaylist = (): void => {
+    const editPlaylist: () => void = (): void => {
       $playlistStore.edit(name.value, id.value);
       $modalStore.closeModal();
     }
