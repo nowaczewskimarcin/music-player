@@ -3,6 +3,7 @@
   <div class="wrapper">
     <div class="left-column"><PlaylistsComponent /></div>
     <div class="right-column"><SongsComponent /></div>
+    <PlaylistModalComponent />
   </div>
   <q-footer><PlayerControls /></q-footer>
     </q-layout>
@@ -13,11 +14,12 @@ import { defineComponent, ref } from 'vue';
 import PlayerControls from 'components/PlayerComponent.vue';
 import PlaylistsComponent from 'components/PlaylistsComponent.vue';
 import SongsComponent from 'components/SongsComponent.vue';
+import PlaylistModalComponent from 'components/modals/PlaylistModalComponent.vue';
 
 export default defineComponent({
   name: 'MainLayout',
 
-  components: { PlayerControls, SongsComponent, PlaylistsComponent },
+  components: { PlayerControls, SongsComponent, PlaylistsComponent, PlaylistModalComponent },
 
   setup () {
     const leftDrawerOpen = ref(false)
@@ -36,13 +38,16 @@ export default defineComponent({
     width: 100%;
     .left-column {
       display: inline-block;
-      width: 30%;
+      width: 20%;
       height: calc(100vh - 100px);
+      background: dimgrey;
+      color: #c4c4c4;
     }
 
     .right-column {
+      position: absolute;
       display: inline-block;
-      width: 70%;
+      width: 80%;
       height: calc(100vh - 100px);
     }
 
@@ -51,6 +56,5 @@ export default defineComponent({
   .q-footer {
     height: 100px;
     background: #fff;
-    border-top: 1px solid #000;
   }
 </style>
